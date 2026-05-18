@@ -64,3 +64,72 @@ if (profileImg) {
         profileImg.src = themes[theme].profileImg;
     });
 }
+
+/* ==========================================
+   glot Modal & Live Video Demo Controller
+   ========================================== */
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Selectors
+    const viewProjectBtn = document.querySelector('.btn-view-project');
+    const glotModal = document.getElementById('glot-modal');
+    const modalClose = document.getElementById('modal-close');
+    const glotVideo = document.getElementById('glot-demo-video');
+
+    if (!glotModal || !viewProjectBtn || !modalClose) return;
+
+    /* --- Modal Management --- */
+    function openModal() {
+        glotModal.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Prevent main page scrolling
+        
+        // Explicitly play the video on modal open
+        if (glotVideo) {
+            glotVideo.currentTime = 0;
+            glotVideo.play().catch(err => console.log("Autoplay blocked:", err));
+        }
+    }
+
+    function closeModal() {
+        glotModal.classList.remove('active');
+        document.body.style.overflow = ''; // Restore main page scrolling
+        
+        // Pause the video to optimize CPU/RAM when the drawer is hidden
+        if (glotVideo) {
+            glotVideo.pause();
+        }
+    }
+
+    // Modal Listeners
+    viewProjectBtn.addEventListener('click', openModal);
+    modalClose.addEventListener('click', closeModal);
+
+    // Fullscreen Event Handler
+    const btnFullscreen = document.getElementById('btn-fullscreen');
+    if (btnFullscreen && glotVideo) {
+        btnFullscreen.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent backdrop closing triggers
+            if (glotVideo.requestFullscreen) {
+                glotVideo.requestFullscreen();
+            } else if (glotVideo.webkitRequestFullscreen) { /* Safari */
+                glotVideo.webkitRequestFullscreen();
+            } else if (glotVideo.msRequestFullscreen) { /* IE11 */
+                glotVideo.msRequestFullscreen();
+            }
+        });
+    }
+
+    // Close on overlay outside click
+    glotModal.addEventListener('click', (e) => {
+        if (e.target === glotModal) {
+            closeModal();
+        }
+    });
+
+    // Close on Escape Key
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && glotModal.classList.contains('active')) {
+            closeModal();
+        }
+    });
+});

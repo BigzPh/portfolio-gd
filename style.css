@@ -184,17 +184,530 @@ h2 {
     gap: 20px;
 }
 
-.project-placeholder {
+/* Projects Styling */
+.project-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 24px;
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: relative;
+    overflow: hidden;
+}
+
+.project-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    aspect-ratio: 16 / 9;
+    height: 3px;
+    background: linear-gradient(90deg, #ff3b30, #ff9500);
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.project-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    border-color: rgba(255, 59, 48, 0.2);
+}
+
+[data-theme='dark'] .project-card:hover {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 59, 48, 0.4);
+}
+
+.project-card:hover::before {
+    opacity: 1;
+}
+
+.project-card-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.project-card-logo {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+}
+
+.glot-logo-svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.project-card-title-group h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.project-card-category {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.project-card-desc {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.project-card-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: auto;
+}
+
+.mini-tag {
+    font-size: 0.75rem;
+    padding: 4px 10px;
     background-color: var(--badge-bg);
-    border-radius: 24px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+.btn-view-project {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background-color: var(--accent-color);
+    color: var(--accent-text);
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    width: 100%;
+    margin-top: 8px;
+}
+
+.btn-view-project:hover {
+    opacity: 0.9;
+}
+
+.btn-view-project .arrow-icon {
+    transition: transform 0.3s ease;
+}
+
+.btn-view-project:hover .arrow-icon {
+    transform: translateX(4px);
+}
+
+/* Modal Overlay & Transitions */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--text-secondary);
-    font-size: 0.9rem;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    padding: 20px;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-container {
+    background-color: var(--bg-color);
     border: 1px solid var(--border-color);
+    border-radius: 20px;
+    width: 100%;
+    max-width: 860px; /* Golden width sweet spot for stacked readable text & 16:9 media */
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow-y: auto; /* Enable vertical scrolling on the entire modal content container */
+    transform: scale(0.95) translateY(10px);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+}
+
+.modal-overlay.active .modal-container {
+    transform: scale(1) translateY(0);
+}
+
+.modal-close {
+    position: sticky; /* Keep the close button float-pinned at the top right while scrolling */
+    top: 20px;
+    align-self: flex-end;
+    margin-right: 20px;
+    margin-bottom: -40px; /* Pull the content up underneath the sticky button */
+    background: rgba(26, 28, 36, 0.85);
+    border: 1px solid var(--border-color);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--text-color);
+    z-index: 100;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: var(--transition);
+}
+
+.modal-close:hover {
+    transform: rotate(90deg);
+    background-color: var(--border-color);
+}
+
+.modal-grid {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    overflow: visible;
+}
+
+/* Scrollable Left Details Column */
+.modal-details {
+    padding: 40px 40px 20px 40px;
+    overflow-y: visible;
+    border-right: none;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.modal-header-block {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.modal-logo-container {
+    width: 64px;
+    height: 64px;
+}
+
+.glot-logo-svg-large {
+    width: 100%;
+    height: 100%;
+}
+
+.modal-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 4px;
+}
+
+.modal-subtitle {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.modal-meta-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.meta-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color: var(--badge-bg);
+    border: 1px solid var(--border-color);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.badge-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.badge-dot.android { background-color: #3ddc84; }
+.badge-dot.compose { background-color: #4285f4; }
+.badge-dot.mlkit { background-color: #ff8f00; }
+
+.modal-section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.modal-section h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-color);
+    border-left: 3px solid #ff3b30;
+    padding-left: 12px;
+}
+
+.modal-section p {
+    font-size: 0.98rem;
+    color: var(--text-color);
+    opacity: 0.9;
+    line-height: 1.6;
+}
+
+.tech-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.tech-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.tech-card strong {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.tech-card p {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+    margin: 0;
+}
+
+/* Challenge items */
+.challenge-item {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.challenge-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.challenge-num {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #ff3b30;
+    opacity: 0.8;
+    line-height: 1;
+}
+
+.challenge-header h4 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.challenge-problem {
+    font-size: 0.88rem !important;
+    color: var(--text-secondary) !important;
+    margin: 0;
+}
+
+.challenge-solution {
+    font-size: 0.9rem !important;
+    border-top: 1px dashed var(--border-color);
+    padding-top: 12px;
+    margin: 0;
+}
+
+/* Stacked Simulator Section */
+.modal-simulator {
+    background-color: var(--badge-bg);
+    padding: 40px;
+    overflow-y: visible;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-top: 1px solid var(--border-color);
+    width: 100%;
+}
+
+.simulator-wrapper {
+    width: 100%;
+    max-width: 460px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.simulator-intro h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.simulator-intro p {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+}
+
+/* Landscape Widescreen Player Frame */
+.landscape-player-container {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background-color: #0c0d12;
+    border: 11px solid #1a1c24;
+    border-radius: 24px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3), inset 0 0 4px rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.landscape-screen {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    background-color: #000;
+}
+
+.landscape-video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Keep uncropped demo capture */
+    background-color: #000;
+    display: block;
+}
+
+/* Glassmorphic Fullscreen Trigger Button */
+.btn-fullscreen {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    background: rgba(12, 13, 18, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    color: #fff;
+    padding: 8px 14px;
+    font-size: 0.76rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    z-index: 120;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-fullscreen:hover {
+    background: rgba(255, 59, 48, 0.9);
+    border-color: rgba(255, 59, 48, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(255, 59, 48, 0.3);
+}
+
+.btn-fullscreen svg {
+    transition: transform 0.3s ease;
+}
+
+.btn-fullscreen:hover svg {
+    transform: scale(1.1);
+}
+
+/* Feature highlights dashboard */
+.highlight-list {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.highlight-item {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+}
+
+.highlight-icon {
+    width: 36px;
+    height: 36px;
+    background-color: rgba(255, 59, 48, 0.1);
+    color: #ff3b30;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border: 1px solid rgba(255, 59, 48, 0.2);
+}
+
+.highlight-content strong {
+    display: block;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 2px;
+}
+
+.highlight-content p {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+    margin: 0;
+}
+
+
+
+/* Responsive Modal Rules */
+@media (max-width: 1024px) {
+    .modal-container {
+        height: 95vh;
+    }
+    
+    .modal-details {
+        padding: 30px 30px 15px 30px;
+    }
+    
+    .modal-simulator {
+        padding: 15px 30px 30px 30px;
+    }
+
+    .tech-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
 }
 
 @media (max-width: 600px) {
@@ -210,5 +723,29 @@ h2 {
 
     .theme-toggle {
         align-self: flex-end;
+    }
+
+    .modal-details {
+        padding: 20px;
+    }
+    
+    .modal-simulator {
+        padding: 20px;
+    }
+    
+    .modal-overlay {
+        padding: 10px;
+    }
+    
+    .modal-title {
+        font-size: 1.8rem;
+    }
+    
+    .challenge-header {
+        gap: 12px;
+    }
+    
+    .challenge-num {
+        font-size: 1.25rem;
     }
 }

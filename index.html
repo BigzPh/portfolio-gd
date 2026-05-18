@@ -84,11 +84,203 @@
         <section class="projects-section">
             <h2>Projects</h2>
             <div class="projects-grid">
-                <div class="project-placeholder">
-                    Work in progress...
+                <div class="project-card" id="glot-card">
+                    <div class="project-card-header">
+                        <div class="project-card-logo">
+                            <svg viewBox="0 0 100 100" class="glot-logo-svg" aria-hidden="true">
+                                <rect width="100" height="100" rx="20" fill="#0c0d12" />
+                                <text x="46" y="56" font-family="-apple-system, BlinkMacSystemFont, 'Inter', sans-serif" font-weight="600" fill="#ffffff" font-size="28" letter-spacing="-0.5" text-anchor="middle">-glot</text>
+                                <circle cx="80" cy="78" r="8" fill="#ff3b30" />
+                            </svg>
+                        </div>
+                        <div class="project-card-title-group">
+                            <h3>glot</h3>
+                            <span class="project-card-category">Android Accessibility</span>
+                        </div>
+                    </div>
+                    <p class="project-card-desc">On-device, real-time screen translator that overlays live translations using MediaProjection, Google ML Kit OCR, and a custom tracking engine.</p>
+                    <div class="project-card-tech">
+                        <span class="mini-tag">Kotlin</span>
+                        <span class="mini-tag">Jetpack Compose</span>
+                        <span class="mini-tag">Google ML Kit</span>
+                        <span class="mini-tag">MediaProjection</span>
+                    </div>
+                    <button class="btn-view-project" aria-haspopup="dialog" aria-controls="glot-modal">
+                        View Showcase 
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="arrow-icon">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </button>
                 </div>
             </div>
         </section>
+    </div>
+
+    <!-- Modal Drawer for glot Details & Simulator -->
+    <div class="modal-overlay" id="glot-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div class="modal-container">
+            <button class="modal-close" id="modal-close" aria-label="Close details">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            <div class="modal-grid">
+                <!-- Left Column: Specs, Features & Challenges -->
+                <div class="modal-details">
+                    <div class="modal-header-block">
+                        <div class="modal-logo-container">
+                            <svg viewBox="0 0 100 100" class="glot-logo-svg-large">
+                                <rect width="100" height="100" rx="20" fill="#0c0d12" />
+                                <text x="46" y="56" font-family="-apple-system, BlinkMacSystemFont, 'Inter', sans-serif" font-weight="600" fill="#ffffff" font-size="28" letter-spacing="-0.5" text-anchor="middle">-glot</text>
+                                <circle cx="80" cy="78" r="8" fill="#ff3b30" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h2 id="modal-title" class="modal-title">glot</h2>
+                            <p class="modal-subtitle">On-Device Real-Time Screen Translator</p>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-meta-badges">
+                        <span class="meta-badge"><span class="badge-dot android"></span>Lead Android Engineer</span>
+                        <span class="meta-badge"><span class="badge-dot compose"></span>Jetpack Compose</span>
+                        <span class="meta-badge"><span class="badge-dot mlkit"></span>Google ML Kit</span>
+                    </div>
+
+                    <div class="modal-section">
+                        <h3>🚀 Project Overview</h3>
+                        <p><strong>glot</strong> is a powerful Android accessibility utility designed for real-time, on-device translation of any application's screen. By combining <code>MediaProjection</code> for high-frequency screen capture with Google ML Kit for OCR and Neural Machine Translation (NMT), it overlays translation tooltips directly onto the active interface. This enables seamless, private consumption of foreign language content in apps that don't support native translation, such as games, social media, or protected documents.</p>
+                    </div>
+
+                    <div class="modal-section">
+                        <h3>🛠️ Technical Architecture</h3>
+                        <div class="tech-grid">
+                            <div class="tech-card">
+                                <strong>Concurrency</strong>
+                                <p>Kotlin Coroutines &amp; StateFlow for reactive state propagation between background service and alert window UI.</p>
+                            </div>
+                            <div class="tech-card">
+                                <strong>Graphics</strong>
+                                <p>MediaProjection API &amp; ImageReader (RGBA_8888 buffer) for optimized bitmap manipulation and downscaling.</p>
+                            </div>
+                            <div class="tech-card">
+                                <strong>Models</strong>
+                                <p>Offline-first script-specific OCR packages (Latin, CJK, Devanagari) and local Google Translate models.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-section">
+                        <h3>🧠 Engineering Challenges &amp; Solutions</h3>
+                        
+                        <div class="challenge-item">
+                            <div class="challenge-header">
+                                <span class="challenge-num">01</span>
+                                <div>
+                                    <h4>Eliminating Overlay Jitter</h4>
+                                    <p class="challenge-problem"><strong>Problem:</strong> Raw OCR coordinates float dynamically by several pixels between frames, creating annoying flickering tooltips during UI active renders.</p>
+                                </div>
+                            </div>
+                            <p class="challenge-solution"><strong>Solution:</strong> Custom-built linear interpolation tracking using a <code>Smoothing Factor (0.55)</code> combined with a <code>Hysteresis Threshold</code>. The position locks if shifts fall below a deadzone threshold; otherwise, tooltips slide gracefully using weighted averages.</p>
+                        </div>
+
+                        <div class="challenge-item">
+                            <div class="challenge-header">
+                                <span class="challenge-num">02</span>
+                                <div>
+                                    <h4>OCR Feedback Loops</h4>
+                                    <p class="challenge-problem"><strong>Problem:</strong> The OCR scanner detects the text of its own translated overlay tooltips as new foreign text, triggering an infinite loop of nested translations.</p>
+                                </div>
+                            </div>
+                            <p class="challenge-solution"><strong>Solution:</strong> Implemented a <strong>Forbidden Zone</strong> geometry exclusion map. The foreground service tracks active alert tooltip bounding boxes and programmatically intersects them with raw OCR output, filtering out overlapping detections.</p>
+                        </div>
+
+                        <div class="challenge-item">
+                            <div class="challenge-header">
+                                <span class="challenge-num">03</span>
+                                <div>
+                                    <h4>Performance Optimization</h4>
+                                    <p class="challenge-problem"><strong>Problem:</strong> Capturing and processing high-resolution screenshots at 60 FPS is extremely CPU and battery intensive.</p>
+                                </div>
+                            </div>
+                            <p class="challenge-solution"><strong>Solution:</strong> Developed a high-speed <code>65% image scaling pipeline</code> directly in the RGBA buffer before sending to ML Kit. It preserves full character fidelity for OCR while cutting the memory footprint and CPU processing cycles by over 50%.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Live App Demo -->
+                <div class="modal-simulator">
+                    <div class="simulator-wrapper">
+                        <div class="simulator-intro">
+                            <h3>📱 Live Android Demonstration</h3>
+                            <p>Watch the real-time glot translation service captured live on an Android device, showcasing overlay precision and fluid system performance.</p>
+                        </div>
+
+                        <!-- Simulated Widescreen Landscape Screen -->
+                        <div class="landscape-player-container">
+                            <div class="landscape-screen">
+                                <video class="landscape-video" id="glot-demo-video" autoplay loop muted playsinline>
+                                    <source src="glot_demo.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                                <button class="btn-fullscreen" id="btn-fullscreen" aria-label="View fullscreen">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+                                    </svg>
+                                    <span>View Full Screen</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Video Highlights Panel -->
+                        <div class="sim-dashboard">
+                            <div class="highlight-list">
+                                <div class="highlight-item">
+                                    <div class="highlight-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                                            <polyline points="2 17 12 22 22 17"></polyline>
+                                            <polyline points="2 12 12 17 22 12"></polyline>
+                                        </svg>
+                                    </div>
+                                    <div class="highlight-content">
+                                        <strong>Foreground Service Overlay</strong>
+                                        <p>Dynamic Jetpack Compose custom tooltips displayed over active third-party applications.</p>
+                                    </div>
+                                </div>
+                                <div class="highlight-item">
+                                    <div class="highlight-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+                                            <path d="M2 12h20"></path>
+                                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                                        </svg>
+                                    </div>
+                                    <div class="highlight-content">
+                                        <strong>Offline Translation Engine</strong>
+                                        <p>Google ML Kit OCR text recognition coupled with localized translation models running with zero external latency.</p>
+                                    </div>
+                                </div>
+                                <div class="highlight-item">
+                                    <div class="highlight-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                            <circle cx="12" cy="12" r="10"></circle>
+                                            <polygon points="10 8 16 12 10 16 10 8"></polygon>
+                                        </svg>
+                                    </div>
+                                    <div class="highlight-content">
+                                        <strong>Seamless Optimization</strong>
+                                        <p>Advanced 65% pre-processing scaling pipeline combined with Forbidden Zone coordinate loops prevention.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="script.js"></script>
