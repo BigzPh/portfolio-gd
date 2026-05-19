@@ -83,8 +83,9 @@ document.addEventListener('DOMContentLoaded', () => {
         glotModal.classList.add('active');
         document.body.style.overflow = 'hidden'; // Prevent main page scrolling
         
-        // Explicitly play the video on modal open
+        // Explicitly play the video on modal open and ensure it starts muted
         if (glotVideo) {
+            glotVideo.muted = true;
             glotVideo.currentTime = 0;
             glotVideo.play().catch(err => console.log("Autoplay blocked:", err));
         }
