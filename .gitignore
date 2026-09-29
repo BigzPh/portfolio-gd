@@ -2,3 +2,4 @@
 .agents/
 skills-lock.json
 .playwright-mcp/
+node_modules/

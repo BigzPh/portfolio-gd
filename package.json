@@ -1,0 +1,25 @@
+{
+  "name": "portfolio",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "update:linkedin": "node scripts/update_linkedin.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BigzPh/portfolio.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/BigzPh/portfolio/issues"
+  },
+  "homepage": "https://github.com/BigzPh/portfolio#readme",
+  "devDependencies": {
+    "playwright": "^1.63.0"
+  }
+}

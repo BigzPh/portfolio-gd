@@ -50,25 +50,74 @@ async function main() {
     console.log('\nNavigating to your LinkedIn profile: https://www.linkedin.com/in/john-carlo-cacao-1579762ba/');
     await page.goto('https://www.linkedin.com/in/john-carlo-cacao-1579762ba/');
 
-    console.log('\n======================================================');
-    console.log('📋 PROFILE DETAILS TO UPDATE:');
-    console.log('------------------------------------------------------');
-    console.log('1. HEADLINE:');
-    console.log(PROFILE_DATA.headline);
-    console.log('\n2. ABOUT SECTION:');
-    console.log(PROFILE_DATA.about);
-    console.log('\n3. EXPERIENCE (PawnHero):');
-    console.log(`Role: ${PROFILE_DATA.experience.role}`);
-    console.log(`Company: ${PROFILE_DATA.experience.company}`);
-    console.log(`Dates: ${PROFILE_DATA.experience.startDate} – Present`);
-    console.log('Description:\n' + PROFILE_DATA.experience.description);
-    console.log('======================================================\n');
-    console.log('💡 TIP: If you see the login screen, log in in the opened browser window.');
-    console.log('Your session and login cookies will be saved in your persistent profile permanently.');
-    console.log('Keep this script running while you review or update your profile.\n');
+    // Check if redirected to login
+    if (page.url().includes('login') || page.url().includes('uas')) {
+        console.log('\n🔑 ACTION REQUIRED: Please log into your LinkedIn account in the browser window.');
+        console.log('Waiting for login completion...');
+        
+        // Wait until navigation leaves the login page
+        await page.waitForURL(url => !url.href.includes('login') && !url.href.includes('uas') && (url.href.includes('/in/') || url.href.includes('/feed/')), {
+            timeout: 180000
+        });
+        console.log('✅ Login detected!');
+        await page.waitForTimeout(3000);
+    }
 
-    // Wait until browser is closed
-    await new Promise(resolve => context.on('close', resolve));
+    // Step 1: Update Headline / Intro
+    console.log('\n⏳ Navigating to Edit Intro form...');
+    await page.goto('https://www.linkedin.com/in/john-carlo-cacao-1579762ba/edit/forms/intro/detail/');
+    await page.waitForLoadState('domcontentloaded');
+
+    try {
+        console.log('Looking for Headline field...');
+        const headlineField = page.locator('input[id*="headline"], textarea[id*="headline"], input[name="headline"], textarea[name="headline"], [aria-label*="Headline" i]').first();
+        await headlineField.waitFor({ timeout: 10000 });
+        
+        await headlineField.click();
+        await headlineField.fill(PROFILE_DATA.headline);
+        console.log('✅ Headline entered!');
+
+        const saveButton = page.locator('button:has-text("Save"), footer button.artdeco-button--primary, button[data-view-name*="save"]').first();
+        if (await saveButton.isVisible()) {
+            await saveButton.click();
+            console.log('✅ Intro changes saved!');
+            await page.waitForTimeout(3000);
+        }
+    } catch (e) {
+        console.log('⚠️ Could not auto-fill intro form:', e.message);
+    }
+
+    // Step 2: Update About / Summary
+    console.log('\n⏳ Navigating to Edit About form...');
+    await page.goto('https://www.linkedin.com/in/john-carlo-cacao-1579762ba/edit/forms/summary/detail/');
+    await page.waitForLoadState('domcontentloaded');
+
+    try {
+        console.log('Looking for About / Summary field...');
+        const summaryField = page.locator('textarea[id*="summary"], textarea[name="summary"], textarea[aria-label*="Summary" i], textarea[aria-label*="About" i], textarea').first();
+        await summaryField.waitFor({ timeout: 10000 });
+        
+        await summaryField.click();
+        await summaryField.fill(PROFILE_DATA.about);
+        console.log('✅ About summary entered!');
+
+        const saveButton = page.locator('button:has-text("Save"), footer button.artdeco-button--primary, button[data-view-name*="save"]').first();
+        if (await saveButton.isVisible()) {
+            await saveButton.click();
+            console.log('✅ About changes saved!');
+            await page.waitForTimeout(3000);
+        }
+    } catch (e) {
+        console.log('⚠️ Could not auto-fill about form:', e.message);
+    }
+
+    // Step 3: View updated profile
+    console.log('\n🎉 Finished! Navigating to updated profile...');
+    await page.goto('https://www.linkedin.com/in/john-carlo-cacao-1579762ba/');
+    console.log('Review your profile in the open browser.');
+    console.log('Closing in 15 seconds...');
+    await page.waitForTimeout(15000);
+    await context.close();
 }
 
 main().catch(err => {
