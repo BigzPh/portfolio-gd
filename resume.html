@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+    @page {
+        size: letter;
+        margin: 0;
+    }
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        color: #111827;
+        background-color: #ffffff;
+        line-height: 1.32;
+        font-size: 8.8pt;
+        width: 8.5in;
+        height: 11in;
+        padding: 0.38in 0.5in;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    
+    /* Header */
+    .header {
+        text-align: center;
+        margin-bottom: 7pt;
+    }
+    .name {
+        font-size: 20pt;
+        font-weight: 800;
+        letter-spacing: -0.025em;
+        color: #0f172a;
+        margin-bottom: 2pt;
+    }
+    .title {
+        font-size: 10pt;
+        font-weight: 600;
+        color: #334155;
+        margin-bottom: 4pt;
+        letter-spacing: 0.02em;
+    }
+    .contact-line {
+        font-size: 8.2pt;
+        color: #475569;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 6pt;
+    }
+    .contact-line a {
+        color: #0f172a;
+        text-decoration: underline;
+        text-underline-offset: 2px;
+    }
+    .separator {
+        color: #94a3b8;
+    }
+
+    /* Section Styles */
+    .section {
+        margin-bottom: 5pt;
+    }
+    .section-title {
+        font-size: 8.8pt;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: #0f172a;
+        border-bottom: 1.2pt solid #0f172a;
+        padding-bottom: 1.5pt;
+        margin-bottom: 4pt;
+    }
+
+    /* Summary */
+    .summary-text {
+        font-size: 8.4pt;
+        color: #334155;
+        line-height: 1.34;
+        text-align: justify;
+    }
+
+    /* Item Blocks (Experience / Projects) */
+    .item {
+        margin-bottom: 4.5pt;
+    }
+    .item:last-child {
+        margin-bottom: 0;
+    }
+    .item-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 1pt;
+    }
+    .item-title-group {
+        display: flex;
+        align-items: baseline;
+        gap: 4pt;
+    }
+    .item-title {
+        font-size: 8.8pt;
+        font-weight: 700;
+        color: #0f172a;
+    }
+    .item-subtitle {
+        font-size: 8.4pt;
+        font-weight: 500;
+        color: #475569;
+    }
+    .item-date {
+        font-size: 8pt;
+        font-weight: 500;
+        color: #64748b;
+        white-space: nowrap;
+    }
+    .item-tech {
+        font-size: 7.8pt;
+        color: #475569;
+        font-style: italic;
+        margin-bottom: 1.5pt;
+    }
+    
+    /* Bullet points */
+    ul.bullets {
+        list-style-type: none;
+        padding-left: 0;
+    }
+    ul.bullets li {
+        position: relative;
+        padding-left: 10pt;
+        margin-bottom: 1.2pt;
+        font-size: 8.2pt;
+        color: #334155;
+        line-height: 1.3;
+    }
+    ul.bullets li::before {
+        content: "•";
+        position: absolute;
+        left: 2pt;
+        color: #0f172a;
+        font-size: 8.5pt;
+    }
+
+    /* Skills Grid */
+    .skills-category {
+        margin-bottom: 1.8pt;
+        font-size: 8.3pt;
+        line-height: 1.3;
+    }
+    .skills-category:last-child {
+        margin-bottom: 0;
+    }
+    .skills-label {
+        font-weight: 700;
+        color: #0f172a;
+    }
+    .skills-content {
+        color: #334155;
+    }
+
+    /* Awards List */
+    .award-grid {
+        display: flex;
+        justify-content: space-between;
+        gap: 8pt;
+    }
+    .award-item {
+        font-size: 8.2pt;
+        color: #334155;
+    }
+    .award-item strong {
+        color: #0f172a;
+    }
+
+    /* Education */
+    .edu-container {
+        display: flex;
+        justify-content: space-between;
+        gap: 12pt;
+    }
+    .edu-col {
+        flex: 1;
+        font-size: 8.3pt;
+    }
+    .edu-title {
+        font-weight: 700;
+        color: #0f172a;
+    }
+    .edu-sub {
+        color: #475569;
+    }
+</style>
+</head>
+<body>
+
+<div class="content-wrapper">
+    <div class="header">
+        <div class="name">John Carlo Z. Cacao</div>
+        <div class="title">Mobile Developer &middot; Computer Science Student</div>
+        <div class="contact-line">
+            <a href="mailto:johncarlozcacao@gmail.com">johncarlozcacao@gmail.com</a>
+            <span class="separator">&bull;</span>
+            <span>09958746940</span>
+            <span class="separator">&bull;</span>
+            <span>Calamba, Laguna, Philippines</span>
+            <span class="separator">&bull;</span>
+            <a href="https://github.com/BigzPh">github.com/BigzPh</a>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Professional Summary</div>
+        <div class="summary-text">
+            Results-oriented Mobile Developer and Computer Science undergraduate with hands-on experience shipping production-grade applications across Android and iOS, alongside backend service engineering in fintech (PawnHero). Proficient in modern architectures (MVVM, MVI), on-device machine learning with Google ML Kit, native home and lock-screen widgets, and reactive concurrency with Kotlin Coroutines and Dart. Champion and multi-time finalist in collegiate hackathons with a proven ability to solve complex mobile systems challenges.
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Work Experience</div>
+        
+        <div class="item">
+            <div class="item-header">
+                <div class="item-title-group">
+                    <span class="item-title">Backend Developer Intern</span>
+                    <span class="item-subtitle">&middot; PawnHero</span>
+                </div>
+                <span class="item-date">June 2026 &mdash; Present</span>
+            </div>
+            <ul class="bullets">
+                <li>Developing backend services, core financial transaction pipelines, and RESTful API integrations in a high-compliance fintech environment.</li>
+                <li>Engineering and optimizing relational database operations with SQL to support operational dashboard tooling and high-concurrency requests.</li>
+                <li>Collaborating in cross-functional agile sprints, peer code reviews, and system reliability testing to ensure low-latency performance.</li>
+            </ul>
+        </div>
+
+        <div class="item">
+            <div class="item-header">
+                <div class="item-title-group">
+                    <span class="item-title">Service Crew</span>
+                    <span class="item-subtitle">&middot; McDonald's</span>
+                </div>
+                <span class="item-date">April 2025 &mdash; May 2026</span>
+            </div>
+            <ul class="bullets">
+                <li>Delivered high-volume customer service and operational efficiency during peak shifts, demonstrating exceptional teamwork and adaptability.</li>
+                <li>Managed concurrent tasks under time pressure, sharpening rigor, prioritization, and communication while pursuing full-time CS studies.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Featured Projects</div>
+
+        <div class="item">
+            <div class="item-header">
+                <div class="item-title-group">
+                    <span class="item-title">Glot</span>
+                    <span class="item-subtitle">&mdash; On-Device Real-Time Screen Translator</span>
+                </div>
+                <span class="item-date">Android</span>
+            </div>
+            <div class="item-tech">Kotlin, Jetpack Compose, Google ML Kit (OCR & Translation), MediaProjection API, Coroutines, StateFlow</div>
+            <ul class="bullets">
+                <li>Architected real-time on-device screen translation utility leveraging MediaProjection for low-latency capture and ML Kit for offline multi-script OCR.</li>
+                <li>Built custom text tracking using IoU matching and hysteresis-based stabilization, eliminating overlay flicker within tuned pixel deadzones.</li>
+                <li>Implemented a "Forbidden Zone" geometry cache preventing OCR feedback loops over active tooltip bounding boxes.</li>
+                <li>Engineered a 65% downscaling and bitmap pooling pipeline, cutting memory footprint and latency by over 50%.</li>
+            </ul>
+        </div>
+
+        <div class="item">
+            <div class="item-header">
+                <div class="item-title-group">
+                    <span class="item-title">Paddi</span>
+                    <span class="item-subtitle">&mdash; Sticky Notes & Desktop Widget App</span>
+                </div>
+                <span class="item-date">Google Play &middot; App Store</span>
+            </div>
+            <div class="item-tech">Flutter, Android Home Screen & iOS 18 Lock Screen Widgets, Dart, Local Storage</div>
+            <ul class="bullets">
+                <li>Published production mobile utility providing persistent, interactive desktop and lock-screen sticky note widgets with custom styling.</li>
+                <li>Engineered native widget communication channels for instant two-way note state updates and offline-first local persistence.</li>
+            </ul>
+        </div>
+
+        <div class="item">
+            <div class="item-header">
+                <div class="item-title-group">
+                    <span class="item-title">Lapi</span>
+                    <span class="item-subtitle">&mdash; Productivity & Task Planning Suite</span>
+                </div>
+                <span class="item-date">Google Play &middot; App Store</span>
+            </div>
+            <div class="item-tech">Flutter, Elixir, Phoenix Framework, PostgreSQL, MVVM Architecture</div>
+            <ul class="bullets">
+                <li>Designed and deployed cross-platform productivity application with interactive calendar integrations and state-driven task tracking.</li>
+                <li>Integrated high-throughput Elixir/Phoenix backend APIs and PostgreSQL persistence for synchronized user workflows.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Technical Skills</div>
+        <div class="skills-category">
+            <span class="skills-label">Languages:</span>
+            <span class="skills-content">Kotlin, Dart, Elixir, Python, SQL, Java</span>
+        </div>
+        <div class="skills-category">
+            <span class="skills-label">Mobile & Frontend:</span>
+            <span class="skills-content">Android SDK, Jetpack Compose (Material 3), Flutter, Android & iOS Widgets, XML</span>
+        </div>
+        <div class="skills-category">
+            <span class="skills-label">Architecture & Concurrency:</span>
+            <span class="skills-content">MVVM, MVI, Clean Architecture, Kotlin Coroutines, StateFlow, Retrofit, Room, Dagger-Hilt</span>
+        </div>
+        <div class="skills-category">
+            <span class="skills-label">Backend & Tools:</span>
+            <span class="skills-content">Phoenix Framework, PostgreSQL, Firebase, Git/GitHub, Android Studio, Xcode, Postman</span>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Honors & Awards</div>
+        <div class="award-grid">
+            <div class="award-item"><strong>Champion</strong> &mdash; CCC DCI Hackathon 2025</div>
+            <div class="award-item"><strong>Finalist</strong> &mdash; CCC DCI Hackathon 2026</div>
+            <div class="award-item"><strong>Finalist</strong> &mdash; CICS Hackathon 2026</div>
+        </div>
+    </div>
+
+    <div class="section" style="margin-bottom: 0;">
+        <div class="section-title">Education & Certifications</div>
+        <div class="edu-container">
+            <div class="edu-col">
+                <div class="edu-title">City College of Calamba</div>
+                <div class="edu-sub">Bachelor of Science in Computer Science (Undergraduate) &bull; Calamba, Laguna</div>
+            </div>
+            <div class="edu-col" style="text-align: right;">
+                <div class="edu-title">Computer System Servicing (NC II)</div>
+                <div class="edu-sub">Redlink Institute of Science and Technology &bull; 2024</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

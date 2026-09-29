@@ -1,5 +1,7 @@
 const themeToggle = document.getElementById('theme-toggle');
 const body = document.documentElement; // Using html level for data-theme
+body.classList.add('js-enabled');
+if (document.body) document.body.classList.add('js-enabled');
 const profileImg = document.getElementById('profile-img');
 
 const themes = {
@@ -16,6 +18,9 @@ const themes = {
 function updateThemeAssets(theme) {
     if (profileImg) {
         profileImg.src = themes[theme].profileImg;
+    }
+    if (themeToggle) {
+        themeToggle.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
     }
 }
 
@@ -162,4 +167,25 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     });
+
+    /* --- Scroll Reveal Animations --- */
+    if (document.body) document.body.classList.add('js-enabled');
+    const revealElements = document.querySelectorAll('.scroll-reveal');
+    if ('IntersectionObserver' in window) {
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.08,
+            rootMargin: '0px 0px -30px 0px'
+        });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+    } else {
+        revealElements.forEach(el => el.classList.add('revealed'));
+    }
 });

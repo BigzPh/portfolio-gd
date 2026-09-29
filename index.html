@@ -15,29 +15,46 @@
             <div class="profile-info">
                 <img src="profile.jpg" alt="Carlo's Profile Picture" class="profile-img" id="profile-img">
                 <div class="intro">
-                    <h1>Hey! I'm Carlo</h1>
-                    <p>Mobile Developer and Computer Science Student at City College of Calamba.</p>
+                    <div class="intro-text">
+                        <h1>Hey! I'm Carlo</h1>
+                        <p>Mobile Developer and Computer Science Student at City College of Calamba.</p>
+                    </div>
                     <!-- Badges -->
-                    <div class="badges" style="margin-top: 20px;">
+                    <div class="badges">
                         <span class="badge">CCC DCI Hackaton 2025 Champion</span>
                         <span class="badge">CCC DCI Hackaton 2026 Finalist</span>
                         <span class="badge">CICS Hackaton 2026 Finalist</span>
                     </div>
-                    <a href="JOHN-CARLO-CACAO-RESUME.pdf" download class="btn-resume">
-                        Resume
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            style="margin-left: 8px;">
-                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                            <polyline points="7 10 12 15 17 10" />
-                            <line x1="12" x2="12" y1="15" y2="3" />
-                        </svg>
-                    </a>
+                    <div class="header-actions">
+                        <a href="JOHN-CARLO-CACAO-RESUME.pdf" download class="btn-resume">
+                            Resume
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                style="margin-left: 6px;">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                <polyline points="7 10 12 15 17 10" />
+                                <line x1="12" x2="12" y1="15" y2="3" />
+                            </svg>
+                        </a>
+                        <a href="https://github.com/BigzPh" target="_blank" rel="noopener noreferrer" class="btn-header-link" aria-label="GitHub Profile">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                            </svg>
+                            <span>GitHub</span>
+                        </a>
+                        <a href="mailto:johncarlozcacao@gmail.com" class="btn-header-link" aria-label="Email Contact">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                <polyline points="22,6 12,13 2,6"></polyline>
+                            </svg>
+                            <span>Contact</span>
+                        </a>
+                    </div>
                 </div>
             </div>
 
             <button class="theme-toggle" id="theme-toggle" aria-label="Toggle Theme">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                     class="sun-icon">
                     <circle cx="12" cy="12" r="5"></circle>
@@ -50,10 +67,15 @@
                     <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
                     <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
                 </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="moon-icon">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
             </button>
         </header>
 
-        <section class="about" id="about">
+        <section class="about scroll-reveal" id="about">
             <h2>About</h2>
             <p>I am a student at the City College of Calamba, currently pursuing my studies in Computer Science. I am
                 passionate about technology and continuously working to improve my skills in software development.</p>
@@ -63,7 +85,7 @@
                 develop impactful projects and contribute to the tech industry in the future.</p>
         </section>
 
-        <section class="experience-section" id="experience">
+        <section class="experience-section scroll-reveal" id="experience">
             <h2>Experience</h2>
             <div class="timeline">
                 <div class="timeline-item current">
@@ -89,29 +111,50 @@
             </div>
         </section>
 
-        <section class="tech-stack-section">
+        <section class="tech-stack-section scroll-reveal" id="tech-stack">
             <h2>Tech Stack</h2>
-            <div class="tech-stack">
-                <span class="tech-tag">Kotlin</span>
-                <span class="tech-tag">Jetpack Compose</span>
-                <span class="tech-tag">Flutter</span>
-                <span class="tech-tag">Dart</span>
-                <span class="tech-tag">Elixir</span>
-                <span class="tech-tag">SQL</span>
-                <span class="tech-tag">Python</span>
-                <span class="tech-tag">Git</span>
-                <span class="tech-tag">Room</span>
-                <span class="tech-tag">Firebase</span>
-                <span class="tech-tag">Retrofit</span>
-                <span class="tech-tag">Coroutines</span>
-                <span class="tech-tag">Dagger-Hilt</span>
-                <span class="tech-tag">MVVM</span>
-                <span class="tech-tag">MVI</span>
-                <span class="tech-tag">Android Studio</span>
+            <div class="tech-categories">
+                <div class="tech-category">
+                    <h3 class="tech-category-title">Mobile &amp; Cross-Platform</h3>
+                    <div class="tech-tags">
+                        <span class="tech-tag highlight">Kotlin</span>
+                        <span class="tech-tag highlight">Jetpack Compose</span>
+                        <span class="tech-tag highlight">Flutter</span>
+                        <span class="tech-tag highlight">Dart</span>
+                        <span class="tech-tag">Compose Multiplatform</span>
+                        <span class="tech-tag">SwiftUI &amp; WidgetKit</span>
+                        <span class="tech-tag">Android SDK</span>
+                        <span class="tech-tag">Android Studio</span>
+                    </div>
+                </div>
+
+                <div class="tech-category">
+                    <h3 class="tech-category-title">Backend &amp; Database</h3>
+                    <div class="tech-tags">
+                        <span class="tech-tag highlight">Elixir</span>
+                        <span class="tech-tag">PostgreSQL / SQL</span>
+                        <span class="tech-tag">Room DB</span>
+                        <span class="tech-tag">Firebase</span>
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">REST APIs &amp; Retrofit</span>
+                    </div>
+                </div>
+
+                <div class="tech-category">
+                    <h3 class="tech-category-title">Architecture &amp; Tooling</h3>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Kotlin Coroutines &amp; Flow</span>
+                        <span class="tech-tag">Dagger-Hilt</span>
+                        <span class="tech-tag">MVVM &amp; MVI</span>
+                        <span class="tech-tag">Clean Architecture</span>
+                        <span class="tech-tag">Git &amp; GitHub</span>
+                        <span class="tech-tag">Postman</span>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <section class="projects-section">
+        <section class="projects-section scroll-reveal">
             <h2>Projects</h2>
             <div class="projects-grid">
                 <div class="project-card" id="lapi-card">
@@ -124,7 +167,7 @@
                             <span class="project-card-category">Productivity &amp; Task Planning (Android &amp; iOS)</span>
                         </div>
                     </div>
-                    <p class="project-card-desc">Offline-first task manager, to-do list, and habit tracker featuring on-device AI planning (local LLM via llama.cpp), GitHub-style activity heatmaps, notch quick-capture, and seamless cloud sync.</p>
+                    <p class="project-card-desc">Offline-first task manager and habit tracker with local LLM planning (llama.cpp), activity heatmaps, camera-notch quick capture, and Google Drive sync.</p>
                     <div class="project-card-tech">
                         <span class="mini-tag">Kotlin</span>
                         <span class="mini-tag">Jetpack Compose</span>
@@ -231,6 +274,26 @@
                 </div>
             </div>
         </section>
+
+        <section class="contact-section scroll-reveal" id="contact">
+            <h2>Contact</h2>
+            <p>I'm always open to discussing mobile development opportunities, internships, or collaborating on impactful projects. Feel free to reach out!</p>
+            <div class="contact-links">
+                <a href="mailto:johncarlozcacao@gmail.com" class="contact-link-card">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                        <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                    <span>johncarlozcacao@gmail.com</span>
+                </a>
+                <a href="https://github.com/BigzPh" target="_blank" rel="noopener noreferrer" class="contact-link-card">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                    </svg>
+                    <span>github.com/BigzPh</span>
+                </a>
+            </div>
+        </section>
     </div>
 
     <!-- Modal Drawer for glot Details & Simulator -->
@@ -266,12 +329,12 @@
                     </div>
 
                     <div class="modal-section">
-                        <h3>🚀 Project Overview</h3>
-                        <p><strong>glot</strong> is a powerful Android accessibility utility designed for real-time, on-device translation of any application's screen. By combining <code>MediaProjection</code> for high-frequency screen capture with Google ML Kit for OCR and Neural Machine Translation (NMT), it overlays translation tooltips directly onto the active interface. This enables seamless, private consumption of foreign language content in apps that don't support native translation, such as games, social media, or protected documents.</p>
+                        <h3>Project Overview</h3>
+                        <p><strong>glot</strong> is an Android accessibility service designed for real-time, on-device translation of any application screen. Combining <code>MediaProjection</code> for frame capture with Google ML Kit for OCR and Neural Machine Translation, it renders translation overlays directly on the active interface without transmitting screen data externally.</p>
                     </div>
 
                     <div class="modal-section">
-                        <h3>🛠️ Technical Architecture</h3>
+                        <h3>Technical Architecture</h3>
                         <div class="tech-grid">
                             <div class="tech-card">
                                 <strong>Concurrency</strong>
@@ -289,39 +352,30 @@
                     </div>
 
                     <div class="modal-section">
-                        <h3>🧠 Engineering Challenges &amp; Solutions</h3>
+                        <h3>Engineering Challenges &amp; Solutions</h3>
                         
                         <div class="challenge-item">
                             <div class="challenge-header">
-                                <span class="challenge-num">01</span>
-                                <div>
-                                    <h4>Eliminating Overlay Jitter</h4>
-                                    <p class="challenge-problem"><strong>Problem:</strong> Raw OCR coordinates float dynamically by several pixels between frames, creating annoying flickering tooltips during UI active renders.</p>
-                                </div>
+                                <h4>Eliminating Overlay Jitter</h4>
+                                <p class="challenge-problem"><strong>Problem:</strong> Raw OCR coordinates float dynamically by several pixels between frames, creating flickering tooltips during active renders.</p>
                             </div>
-                            <p class="challenge-solution"><strong>Solution:</strong> Custom-built linear interpolation tracking using a <code>Smoothing Factor (0.55)</code> combined with a <code>Hysteresis Threshold</code>. The position locks if shifts fall below a deadzone threshold; otherwise, tooltips slide gracefully using weighted averages.</p>
+                            <p class="challenge-solution"><strong>Solution:</strong> Custom linear interpolation tracking using a <code>Smoothing Factor (0.55)</code> combined with a <code>Hysteresis Threshold</code>. The position locks if shifts fall below a deadzone threshold; otherwise, tooltips slide using weighted averages.</p>
                         </div>
 
                         <div class="challenge-item">
                             <div class="challenge-header">
-                                <span class="challenge-num">02</span>
-                                <div>
-                                    <h4>OCR Feedback Loops</h4>
-                                    <p class="challenge-problem"><strong>Problem:</strong> The OCR scanner detects the text of its own translated overlay tooltips as new foreign text, triggering an infinite loop of nested translations.</p>
-                                </div>
+                                <h4>OCR Feedback Loops</h4>
+                                <p class="challenge-problem"><strong>Problem:</strong> The OCR scanner detects the text of its own translated overlay tooltips as new foreign text, triggering nested translation loops.</p>
                             </div>
-                            <p class="challenge-solution"><strong>Solution:</strong> Implemented a <strong>Forbidden Zone</strong> geometry exclusion map. The foreground service tracks active alert tooltip bounding boxes and programmatically intersects them with raw OCR output, filtering out overlapping detections.</p>
+                            <p class="challenge-solution"><strong>Solution:</strong> Implemented a geometry exclusion map. The foreground service tracks active alert tooltip bounding boxes and intersects them with raw OCR output, filtering out overlapping detections.</p>
                         </div>
 
                         <div class="challenge-item">
                             <div class="challenge-header">
-                                <span class="challenge-num">03</span>
-                                <div>
-                                    <h4>Performance Optimization</h4>
-                                    <p class="challenge-problem"><strong>Problem:</strong> Capturing and processing high-resolution screenshots at 60 FPS is extremely CPU and battery intensive.</p>
-                                </div>
+                                <h4>Performance Optimization</h4>
+                                <p class="challenge-problem"><strong>Problem:</strong> Capturing and processing high-resolution screenshots at 60 FPS is CPU and battery intensive.</p>
                             </div>
-                            <p class="challenge-solution"><strong>Solution:</strong> Developed a high-speed <code>65% image scaling pipeline</code> directly in the RGBA buffer before sending to ML Kit. It preserves full character fidelity for OCR while cutting the memory footprint and CPU processing cycles by over 50%.</p>
+                            <p class="challenge-solution"><strong>Solution:</strong> Developed a <code>65% image scaling pipeline</code> directly in the RGBA buffer before sending frames to ML Kit, reducing memory footprint and processing cycles by over 50%.</p>
                         </div>
                     </div>
                 </div>
@@ -330,7 +384,7 @@
                 <div class="modal-simulator">
                     <div class="simulator-wrapper">
                         <div class="simulator-intro">
-                            <h3>📱 Live Android Demonstration</h3>
+                            <h3>Live Android Demonstration</h3>
                             <p>Watch the real-time glot translation service captured live on an Android device, showcasing overlay precision and fluid system performance.</p>
                         </div>
 
@@ -386,7 +440,7 @@
                                         </svg>
                                     </div>
                                     <div class="highlight-content">
-                                        <strong>Seamless Optimization</strong>
+                                        <strong>Buffer &amp; Pipeline Optimization</strong>
                                         <p>Advanced 65% pre-processing scaling pipeline combined with Forbidden Zone coordinate loops prevention.</p>
                                     </div>
                                 </div>
@@ -428,12 +482,12 @@
                     </div>
 
                     <div class="modal-section">
-                        <h3>🚀 Project Overview</h3>
-                        <p><strong>Lapi</strong> is an offline-first productivity powerhouse published globally on the Google Play Store and Apple App Store. Designed with a cozy, mascot-driven aesthetic, Lapi unites task management, daily scheduling, habit tracking with GitHub-style activity heatmaps, recurring routine builders, and on-device AI planning. It empowers users to organize their daily life without depending on external cloud servers or sacrificing data privacy.</p>
+                        <h3>Project Overview</h3>
+                        <p><strong>Lapi</strong> is an offline-first task manager and habit tracker published on Google Play and the App Store. It combines daily scheduling, habit tracking with activity heatmaps, recurring routine builders, and on-device AI planning using a quantized local LLM, keeping user data local and private.</p>
                     </div>
 
                     <div class="modal-section">
-                        <h3>🛠️ Technical Architecture</h3>
+                        <h3>Technical Architecture</h3>
                         <div class="tech-grid">
                             <div class="tech-card">
                                 <strong>On-Device LLM</strong>
@@ -451,37 +505,28 @@
                     </div>
 
                     <div class="modal-section">
-                        <h3>🧠 Engineering Challenges &amp; Solutions</h3>
+                        <h3>Engineering Challenges &amp; Solutions</h3>
                         
                         <div class="challenge-item">
                             <div class="challenge-header">
-                                <span class="challenge-num">01</span>
-                                <div>
-                                    <h4>On-Device LLM Memory &amp; Thermal Constraints</h4>
-                                    <p class="challenge-problem"><strong>Problem:</strong> Running local neural language models on mobile devices caused severe memory spikes, thermal throttling, and garbage collection pauses.</p>
-                                </div>
+                                <h4>On-Device LLM Memory &amp; Thermal Constraints</h4>
+                                <p class="challenge-problem"><strong>Problem:</strong> Running local neural language models on mobile devices caused severe memory spikes, thermal throttling, and garbage collection pauses.</p>
                             </div>
                             <p class="challenge-solution"><strong>Solution:</strong> Compiled a native C++ JNI bridge linking <code>llama.cpp</code> with ARM NEON / KleidiAI acceleration. Utilized 4-bit quantized GGUF weights with aggressive token streaming and background thread isolation.</p>
                         </div>
 
                         <div class="challenge-item">
                             <div class="challenge-header">
-                                <span class="challenge-num">02</span>
-                                <div>
-                                    <h4>Hardware-Agnostic Cutout Geometry Detection</h4>
-                                    <p class="challenge-problem"><strong>Problem:</strong> Different manufacturers implement varied punch-hole, pill, and teardrop camera cutouts, causing touch coordinates to misalign.</p>
-                                </div>
+                                <h4>Hardware-Agnostic Cutout Geometry Detection</h4>
+                                <p class="challenge-problem"><strong>Problem:</strong> Different manufacturers implement varied punch-hole, pill, and teardrop camera cutouts, causing touch coordinates to misalign.</p>
                             </div>
                             <p class="challenge-solution"><strong>Solution:</strong> Leveraged <code>WindowInsetsCompat.displayCutout</code> to query real-time physical cutout bounding boxes and combined it with touch-slop hysteresis to trigger the smooth drop-down task input drawer reliably.</p>
                         </div>
 
                         <div class="challenge-item">
                             <div class="challenge-header">
-                                <span class="challenge-num">03</span>
-                                <div>
-                                    <h4>Conflict-Free Cloud Synchronization</h4>
-                                    <p class="challenge-problem"><strong>Problem:</strong> Syncing local SQLite databases with Google Drive AppData snapshots across multiple devices resulted in overwritten tasks and broken streak counters.</p>
-                                </div>
+                                <h4>Conflict-Free Cloud Synchronization</h4>
+                                <p class="challenge-problem"><strong>Problem:</strong> Syncing local SQLite databases with Google Drive AppData snapshots across multiple devices resulted in overwritten tasks and broken streak counters.</p>
                             </div>
                             <p class="challenge-solution"><strong>Solution:</strong> Engineered a custom <code>LapiSmartMerge</code> engine. It performs entity-level timestamp reconciliation using monotonic <code>updatedAtMillis</code> and merges routine completion maps granularly.</p>
                         </div>
@@ -492,7 +537,7 @@
                 <div class="modal-simulator">
                     <div class="simulator-wrapper">
                         <div class="simulator-intro">
-                            <h3>📱 Store Availability &amp; Highlights</h3>
+                            <h3>Store Availability &amp; Highlights</h3>
                             <p>Download Lapi live on the official mobile app stores or explore key productivity features built into the app.</p>
                         </div>
 
@@ -619,16 +664,16 @@
                     </div>
 
                     <div class="modal-section">
-                        <h3>🚀 Project Overview</h3>
-                        <p><strong>Paddi</strong> is an interactive home screen sticky notes widget and voice memo app published globally on Google Play and Apple App Store. Built with Kotlin Multiplatform and Compose Multiplatform, Paddi brings thoughts, quick checklists, and audio memos directly to user home screens. Featuring an expressive, animated notepad mascot that reacts with distinct emotional states, Paddi combines delight, color personalization, and instant accessibility.</p>
+                        <h3>Project Overview</h3>
+                        <p><strong>Paddi</strong> is a home screen sticky notes widget and audio memo app published on Google Play and the App Store. Built with Kotlin Multiplatform and Compose Multiplatform, it shares business logic and UI between Android and iOS while integrating native home screen widgets.</p>
                     </div>
 
                     <div class="modal-section">
-                        <h3>🛠️ Technical Architecture</h3>
+                        <h3>Technical Architecture</h3>
                         <div class="tech-grid">
                             <div class="tech-card">
                                 <strong>Compose Multiplatform</strong>
-                                <p>100% shared Kotlin business logic, state handling, and declarative UI shared seamlessly across Android and iOS targets.</p>
+                                <p>Shared Kotlin business logic, state handling, and declarative UI across Android and iOS targets.</p>
                             </div>
                             <div class="tech-card">
                                 <strong>Dual-Platform Widgets</strong>
@@ -642,37 +687,28 @@
                     </div>
 
                     <div class="modal-section">
-                        <h3>🧠 Engineering Challenges &amp; Solutions</h3>
+                        <h3>Engineering Challenges &amp; Solutions</h3>
                         
                         <div class="challenge-item">
                             <div class="challenge-header">
-                                <span class="challenge-num">01</span>
-                                <div>
-                                    <h4>Cross-Platform Home Screen Widget Synchronization</h4>
-                                    <p class="challenge-problem"><strong>Problem:</strong> iOS WidgetKit and Android RemoteViews have fundamentally distinct lifecycles, memory limits, and background refresh constraints that cannot run standard Compose UI directly inside the widget process.</p>
-                                </div>
+                                <h4>Cross-Platform Home Screen Widget Synchronization</h4>
+                                <p class="challenge-problem"><strong>Problem:</strong> iOS WidgetKit and Android RemoteViews have fundamentally distinct lifecycles, memory limits, and background refresh constraints that cannot run standard Compose UI directly inside the widget process.</p>
                             </div>
                             <p class="challenge-solution"><strong>Solution:</strong> Architected dedicated native bridge layers. On iOS, Swift WidgetKit extensions read from a shared App Group container updated by Kotlin Native; on Android, AppWidgetProvider observes local database changes, guaranteeing instant widget sync on both systems.</p>
                         </div>
 
                         <div class="challenge-item">
                             <div class="challenge-header">
-                                <span class="challenge-num">02</span>
-                                <div>
-                                    <h4>Adaptive High-Contrast Dynamic Typography</h4>
-                                    <p class="challenge-problem"><strong>Problem:</strong> Sticky notes allow custom user-selected pastel and vibrant background colors, which often resulted in illegible text when colors clashed with standard black or white fonts.</p>
-                                </div>
+                                <h4>Adaptive High-Contrast Dynamic Typography</h4>
+                                <p class="challenge-problem"><strong>Problem:</strong> Sticky notes allow custom user-selected pastel and vibrant background colors, which often resulted in illegible text when colors clashed with standard black or white fonts.</p>
                             </div>
                             <p class="challenge-solution"><strong>Solution:</strong> Developed a real-time relative luminance calculation engine conforming to WCAG 2.1 contrast ratios (computing <code>0.2126R + 0.7152G + 0.0722B</code>), with a manual high-contrast toggle for complete personalization.</p>
                         </div>
 
                         <div class="challenge-item">
                             <div class="challenge-header">
-                                <span class="challenge-num">03</span>
-                                <div>
-                                    <h4>Reactive Mascot Animation Frame Performance</h4>
-                                    <p class="challenge-problem"><strong>Problem:</strong> Continuous vector animations, eye-blinking, and emotional reactions caused frequent recompositions and battery drain during fast typing.</p>
-                                </div>
+                                <h4>Reactive Mascot Animation Frame Performance</h4>
+                                <p class="challenge-problem"><strong>Problem:</strong> Continuous vector animations, eye-blinking, and emotional reactions caused frequent recompositions and battery drain during fast typing.</p>
                             </div>
                             <p class="challenge-solution"><strong>Solution:</strong> Designed decoupled Compose transition specs with state-driven blink intervals and deferred canvas drawing passes, keeping UI rendering at 60 FPS with minimal CPU overhead.</p>
                         </div>
@@ -683,7 +719,7 @@
                 <div class="modal-simulator">
                     <div class="simulator-wrapper">
                         <div class="simulator-intro">
-                            <h3>📱 Store Availability &amp; Highlights</h3>
+                            <h3>Store Availability &amp; Highlights</h3>
                             <p>Download Paddi live on Google Play and Apple App Store or discover key widget capabilities.</p>
                         </div>
 
