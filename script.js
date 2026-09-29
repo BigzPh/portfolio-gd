@@ -66,71 +66,100 @@ if (profileImg) {
 }
 
 /* ==========================================
-   glot Modal & Live Video Demo Controller
+   Project Modals & Video Demo Controller
    ========================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Selectors
-    const viewProjectBtn = document.querySelector('.btn-view-project');
-    const glotModal = document.getElementById('glot-modal');
-    const modalClose = document.getElementById('modal-close');
-    const glotVideo = document.getElementById('glot-demo-video');
-
-    if (!glotModal || !viewProjectBtn || !modalClose) return;
+    const viewProjectBtns = document.querySelectorAll('.btn-view-project');
+    const modalCloseBtns = document.querySelectorAll('.modal-close');
+    const modals = document.querySelectorAll('.modal-overlay');
 
     /* --- Modal Management --- */
-    function openModal() {
-        glotModal.classList.add('active');
+    function openModal(modal) {
+        if (!modal) return;
+        modal.classList.add('active');
         document.body.style.overflow = 'hidden'; // Prevent main page scrolling
         
-        // Explicitly play the video on modal open and ensure it starts muted
-        if (glotVideo) {
-            glotVideo.muted = true;
-            glotVideo.currentTime = 0;
-            glotVideo.play().catch(err => console.log("Autoplay blocked:", err));
+        // If modal contains video, play muted from start
+        const video = modal.querySelector('video');
+        if (video) {
+            video.muted = true;
+            video.currentTime = 0;
+            video.play().catch(err => console.log("Autoplay blocked:", err));
         }
     }
 
-    function closeModal() {
-        glotModal.classList.remove('active');
-        document.body.style.overflow = ''; // Restore main page scrolling
+    function closeModal(modal) {
+        if (!modal) return;
+        modal.classList.remove('active');
         
-        // Pause the video to optimize CPU/RAM when the drawer is hidden
-        if (glotVideo) {
-            glotVideo.pause();
+        // Restore scrolling only if no other modal is open
+        const anyOpen = document.querySelector('.modal-overlay.active');
+        if (!anyOpen) {
+            document.body.style.overflow = '';
+        }
+        
+        // Pause any video inside the modal
+        const video = modal.querySelector('video');
+        if (video) {
+            video.pause();
         }
     }
 
-    // Modal Listeners
-    viewProjectBtn.addEventListener('click', openModal);
-    modalClose.addEventListener('click', closeModal);
-
-    // Fullscreen Event Handler
-    const btnFullscreen = document.getElementById('btn-fullscreen');
-    if (btnFullscreen && glotVideo) {
-        btnFullscreen.addEventListener('click', (e) => {
-            e.stopPropagation(); // Prevent backdrop closing triggers
-            if (glotVideo.requestFullscreen) {
-                glotVideo.requestFullscreen();
-            } else if (glotVideo.webkitRequestFullscreen) { /* Safari */
-                glotVideo.webkitRequestFullscreen();
-            } else if (glotVideo.msRequestFullscreen) { /* IE11 */
-                glotVideo.msRequestFullscreen();
+    // Modal Trigger Listeners
+    viewProjectBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const targetId = btn.getAttribute('aria-controls');
+            if (targetId) {
+                const targetModal = document.getElementById(targetId);
+                openModal(targetModal);
             }
         });
-    }
+    });
+
+    // Close Button Listeners
+    modalCloseBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const modal = btn.closest('.modal-overlay');
+            closeModal(modal);
+        });
+    });
+
+    // Fullscreen Event Handler (for any modal video)
+    const fullscreenBtns = document.querySelectorAll('.btn-fullscreen');
+    fullscreenBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent backdrop closing triggers
+            const video = btn.closest('.landscape-screen')?.querySelector('video');
+            if (video) {
+                if (video.requestFullscreen) {
+                    video.requestFullscreen();
+                } else if (video.webkitRequestFullscreen) { /* Safari */
+                    video.webkitRequestFullscreen();
+                } else if (video.msRequestFullscreen) { /* IE11 */
+                    video.msRequestFullscreen();
+                }
+            }
+        });
+    });
 
     // Close on overlay outside click
-    glotModal.addEventListener('click', (e) => {
-        if (e.target === glotModal) {
-            closeModal();
-        }
+    modals.forEach(modal => {
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal(modal);
+            }
+        });
     });
 
     // Close on Escape Key
     window.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && glotModal.classList.contains('active')) {
-            closeModal();
+        if (e.key === 'Escape') {
+            modals.forEach(modal => {
+                if (modal.classList.contains('active')) {
+                    closeModal(modal);
+                }
+            });
         }
     });
 });
