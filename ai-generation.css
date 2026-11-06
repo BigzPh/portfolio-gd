@@ -1,0 +1,657 @@
+/* ==========================================================================
+   AI Portfolio Generation — Granular Multi-Agent Real DOM Builder
+   1. Minimal 1-Pill Splash Prompt ("Create me a portfolio")
+   2. 18-Agent Concurrent Figma Builder Operating Directly on Real DOM Objects
+      (Outer Containers -> Inner Images, Headings, Text, Tags, Icons & Buttons)
+   ========================================================================== */
+
+:root {
+    --ai-figma-blue: #0d99ff;
+    --ai-accent-blue: #0957EF;
+    --ai-splash-bg: #090b10;
+}
+
+/* ==========================================================================
+   Real DOM Layer Isolation Rules (Zero Transform Offset, Instant Materialize)
+   ========================================================================== */
+
+body.ai-building {
+    padding-bottom: 120px !important;
+    overflow-x: hidden;
+}
+
+/* Keep section wrappers in their exact final layout position during build */
+body.ai-building .scroll-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+}
+
+/* Disable entry animations & hover transitions during active construction so
+   getBoundingClientRect() is 100% accurate and elements appear in 0ms */
+body.ai-building .container,
+body.ai-building .container * {
+    animation: none !important;
+    transition: none !important;
+}
+
+/* Unbuilt layer: completely invisible while preserving 100% exact layout geometry */
+body.ai-building .ai-layer-hidden,
+body.ai-building .scroll-reveal.ai-layer-hidden {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    transform: none !important;
+}
+
+/* Built layer: appears instantaneously on the exact frame drag/type finishes.
+   Any unbuilt child inside a built parent still has .ai-layer-hidden and stays
+   invisible until an agent builds that specific child! */
+body.ai-building .ai-layer-built,
+body.ai-building .scroll-reveal.ai-layer-built {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+}
+
+/* Prevent header CSS entry animations from re-firing when ai-building is removed */
+body.ai-completed .profile-img,
+body.ai-completed .intro-text,
+body.ai-completed .header-actions,
+body.ai-completed .theme-toggle,
+body.ai-completed .badges .badge {
+    animation: none !important;
+}
+
+/* Temporary text wrapper & zero-reflow live character streaming spans */
+.ai-inner-text {
+    font: inherit;
+    color: inherit;
+    letter-spacing: inherit;
+    line-height: inherit;
+    text-transform: inherit;
+}
+
+.ai-typed-visible {
+    opacity: 1;
+}
+
+.ai-typed-ghost {
+    opacity: 0;
+}
+
+.ai-typed-caret {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    position: relative;
+    vertical-align: baseline;
+}
+
+.ai-typed-caret::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -0.14em;
+    width: 1.5px;
+    height: 1.12em;
+    background: var(--ai-figma-blue);
+    pointer-events: none;
+}
+
+/* ==========================================================================
+   Phase 1: Simple 1-Pill Splash Screen ("Create me a portfolio")
+   ========================================================================== */
+
+.ai-prompt-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 10010;
+    background: var(--ai-splash-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+                visibility 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.ai-prompt-overlay.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.ai-prompt-pill {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    max-width: 430px;
+    padding: 8px 8px 8px 20px;
+    background: #13161f;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 9999px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65);
+    transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.ai-prompt-pill:hover {
+    border-color: rgba(255, 255, 255, 0.26);
+}
+
+.ai-prompt-input-wrap {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    min-height: 38px;
+    overflow: hidden;
+}
+
+.ai-prompt-text {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #f8fafc;
+    white-space: nowrap;
+    letter-spacing: -0.01em;
+}
+
+.ai-typing-cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1.15em;
+    background: var(--ai-figma-blue);
+    margin-left: 2px;
+    animation: aiCaretBlink 0.8s steps(2, start) infinite;
+}
+
+@keyframes aiCaretBlink {
+    0%, 50% { opacity: 1; }
+    50.01%, 100% { opacity: 0; }
+}
+
+.ai-prompt-send-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--ai-accent-blue);
+    border: none;
+    color: #ffffff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.18s ease;
+}
+
+.ai-prompt-send-btn:hover {
+    background: #1d68ff;
+    transform: scale(1.06);
+}
+
+.ai-prompt-send-btn:active,
+.ai-prompt-send-btn.sending {
+    transform: scale(0.9);
+    background: #0747c7;
+}
+
+/* ==========================================================================
+   Phase 2: Live Figma Multi-Agent Construction Overlay
+   ========================================================================== */
+
+.ai-live-stage {
+    position: fixed;
+    inset: 0;
+    z-index: 9990;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.22s ease, visibility 0.22s ease;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.ai-live-stage.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Subtle Figma Rulers (Top & Left) */
+.ai-ruler-corner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 18px;
+    height: 18px;
+    background: rgba(15, 17, 23, 0.88);
+    border-right: 1px solid rgba(128, 138, 158, 0.2);
+    border-bottom: 1px solid rgba(128, 138, 158, 0.2);
+    z-index: 9991;
+}
+
+.ai-ruler-top {
+    position: fixed;
+    top: 0;
+    left: 18px;
+    right: 0;
+    height: 18px;
+    background: rgba(15, 17, 23, 0.88);
+    border-bottom: 1px solid rgba(128, 138, 158, 0.2);
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    z-index: 9991;
+}
+
+.ai-ruler-left {
+    position: fixed;
+    top: 18px;
+    left: 0;
+    bottom: 0;
+    width: 18px;
+    background: rgba(15, 17, 23, 0.88);
+    border-right: 1px solid rgba(128, 138, 158, 0.2);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 9991;
+}
+
+.ai-ruler-tick-h {
+    flex-shrink: 0;
+    width: 100px;
+    height: 100%;
+    border-left: 1px solid rgba(148, 163, 184, 0.22);
+    font-size: 8px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    color: rgba(148, 163, 184, 0.75);
+    padding-left: 3px;
+    line-height: 18px;
+}
+
+.ai-ruler-tick-v {
+    flex-shrink: 0;
+    height: 100px;
+    width: 100%;
+    border-top: 1px solid rgba(148, 163, 184, 0.22);
+    font-size: 7px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    color: rgba(148, 163, 184, 0.75);
+    padding-top: 2px;
+    text-align: center;
+}
+
+/* Subtle Figma Smart Alignment Hairlines */
+.ai-smart-guide-h,
+.ai-smart-guide-v {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9991;
+    opacity: 0;
+    transition: opacity 0.12s ease;
+}
+
+.ai-smart-guide-h {
+    left: 18px;
+    right: 0;
+    height: 1px;
+    background: rgba(242, 72, 34, 0.45);
+}
+
+.ai-smart-guide-v {
+    top: 18px;
+    bottom: 0;
+    width: 1px;
+    background: rgba(242, 72, 34, 0.45);
+}
+
+.ai-smart-guide-h.visible,
+.ai-smart-guide-v.visible {
+    opacity: 1;
+}
+
+/* ==========================================================================
+   Active Figma Selection Boxes (Box / Button / Image Placeholder / Text Frame)
+   ========================================================================== */
+
+.ai-work-layer {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9993;
+}
+
+.ai-selection-box {
+    position: fixed;
+    top: 0;
+    left: 0;
+    border: 1px solid var(--sel-color, #0d99ff);
+    pointer-events: none;
+    will-change: transform, width, height;
+}
+
+.ai-selection-box.is-box,
+.ai-selection-box.is-button,
+.ai-selection-box.is-tag {
+    background: rgba(13, 153, 255, 0.055);
+}
+
+.ai-selection-box.is-image {
+    background: rgba(115, 130, 156, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: visible;
+}
+
+.ai-selection-box.is-text {
+    background: rgba(13, 153, 255, 0.02);
+}
+
+.ai-selection-box.is-line {
+    background: rgba(13, 153, 255, 0.22);
+}
+
+/* Image Placeholder Center Icon (like Figma asset frame) */
+.ai-img-placeholder-icon {
+    width: 22px;
+    height: 22px;
+    color: rgba(148, 163, 184, 0.85);
+    opacity: 0.85;
+    pointer-events: none;
+    flex-shrink: 0;
+}
+
+/* 4 Crisp White Square Figma Corner Handles */
+.ai-handle {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background: #ffffff;
+    border: 1px solid var(--sel-color, #0d99ff);
+    pointer-events: none;
+}
+
+.ai-handle.tl { top: -3px; left: -3px; }
+.ai-handle.tr { top: -3px; right: -3px; }
+.ai-handle.bl { bottom: -3px; left: -3px; }
+.ai-handle.br { bottom: -3px; right: -3px; }
+
+.ai-selection-box.compact-handles .ai-handle {
+    width: 4px;
+    height: 4px;
+}
+.ai-selection-box.compact-handles .ai-handle.tl { top: -2.5px; left: -2.5px; }
+.ai-selection-box.compact-handles .ai-handle.tr { top: -2.5px; right: -2.5px; }
+.ai-selection-box.compact-handles .ai-handle.bl { bottom: -2.5px; left: -2.5px; }
+.ai-selection-box.compact-handles .ai-handle.br { bottom: -2.5px; right: -2.5px; }
+
+/* Bottom-Center Figma Dimension Badge (W × H) */
+.ai-dim-pill {
+    position: absolute;
+    left: 50%;
+    bottom: -16px;
+    transform: translateX(-50%);
+    background: var(--sel-color, #0d99ff);
+    color: #ffffff;
+    font-size: 9px;
+    font-weight: 600;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    padding: 1px 5px;
+    border-radius: 3px;
+    line-height: 1.25;
+    white-space: nowrap;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.28);
+    pointer-events: none;
+}
+
+/* ==========================================================================
+   18 Concurrent Figma Agent Cursors (Zero CSS Transform Lag!)
+   3 Tool Modes: pointer | crosshair (+) | ibeam (I)
+   ========================================================================== */
+
+.ai-cursors-layer {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9996;
+}
+
+.ai-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    will-change: transform, opacity;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.ai-cursor.visible {
+    opacity: 1;
+}
+
+.ai-cursor.resting {
+    opacity: 0.35;
+}
+
+.ai-cursor .tool-icon {
+    display: none;
+}
+
+/* Mode 1: Crisp Figma Pointer Arrow (tip at 0,0) */
+.ai-cursor[data-tool="pointer"] .tool-pointer {
+    display: block;
+    width: 18px;
+    height: 18px;
+    margin-left: -2px;
+    margin-top: -2px;
+    filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.45));
+}
+
+/* Mode 2: Crisp Figma Frame/Box Crosshair '+' (center at 0,0) */
+.ai-cursor[data-tool="crosshair"] .tool-crosshair {
+    display: block;
+    width: 16px;
+    height: 16px;
+    margin-left: -8px;
+    margin-top: -8px;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.55));
+}
+
+/* Mode 3: Crisp Figma Text I-Beam (offset slightly right/below caret) */
+.ai-cursor[data-tool="ibeam"] .tool-ibeam {
+    display: block;
+    width: 14px;
+    height: 18px;
+    margin-left: 3px;
+    margin-top: -4px;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.55));
+}
+
+/* ==========================================================================
+   Floating Bottom Control Dock (Matches Reference Video)
+   18 agents · X / Total layers · Progress · Touring · 1x · ×
+   ========================================================================== */
+
+.ai-dock {
+    position: fixed;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10002;
+    pointer-events: auto;
+    background: rgba(16, 18, 25, 0.94);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 9999px;
+    padding: 6px 10px 6px 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(16px);
+    color: #e2e8f0;
+    font-size: 12px;
+    white-space: nowrap;
+    user-select: none;
+    max-width: 96vw;
+}
+
+.ai-dock-dots {
+    display: flex;
+    align-items: center;
+    padding-right: 2px;
+}
+
+.ai-dock-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 1.5px solid #101219;
+    margin-left: -4px;
+}
+
+.ai-dock-dot:first-child {
+    margin-left: 0;
+}
+
+.ai-dock-agents {
+    font-weight: 600;
+    color: #f1f5f9;
+    font-size: 11.5px;
+}
+
+.ai-dock-sep {
+    color: rgba(148, 163, 184, 0.45);
+    font-size: 11px;
+}
+
+.ai-dock-layers {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 11px;
+    color: #94a3b8;
+    min-width: 92px;
+}
+
+.ai-dock-track {
+    width: 56px;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 999px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.ai-dock-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--ai-figma-blue);
+    border-radius: 999px;
+    transition: width 0.08s linear;
+}
+
+.ai-dock-mode {
+    background: rgba(13, 153, 255, 0.2);
+    color: #38bdf8;
+    border: 1px solid rgba(13, 153, 255, 0.4);
+    font-size: 10.5px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 999px;
+    letter-spacing: 0.01em;
+}
+
+.ai-dock-btn {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #cbd5e1;
+    border-radius: 999px;
+    height: 22px;
+    padding: 0 8px;
+    font-size: 10.5px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.ai-dock-btn:hover {
+    background: rgba(255, 255, 255, 0.18);
+    color: #ffffff;
+}
+
+.ai-dock-close {
+    width: 22px;
+    padding: 0;
+    font-size: 14px;
+    line-height: 1;
+}
+
+@media (max-width: 560px) {
+    .ai-dock-track,
+    .ai-dock-sep {
+        display: none;
+    }
+    .ai-dock {
+        gap: 7px;
+        padding: 5px 8px 5px 10px;
+    }
+}
+
+/* ==========================================================================
+   Phase 3: Post-Build "Replay" Pill
+   ========================================================================== */
+
+.ai-replay-pill {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 990;
+    background: rgba(16, 18, 25, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 9999px;
+    padding: 7px 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: #e2e8f0;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(12px);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease, border-color 0.2s ease;
+}
+
+.ai-replay-pill.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.ai-replay-pill:hover {
+    border-color: var(--ai-figma-blue);
+    color: #ffffff;
+    transform: translateY(-2px);
+}
+
+.ai-replay-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--ai-figma-blue);
+}
