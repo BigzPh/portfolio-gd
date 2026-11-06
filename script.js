@@ -168,6 +168,145 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    /* --- BIGZ Brand Identity Viewer Controller --- */
+    const brandVariantBtns = document.querySelectorAll('.brand-variant-btn');
+    const surfaceBtns = document.querySelectorAll('.surface-btn');
+    const brandPreviewImg = document.getElementById('brand-preview-img');
+    const brandCanvas = document.getElementById('brand-canvas');
+    const brandCaption = document.getElementById('brand-preview-caption');
+
+    const brandAssets = {
+        badge: {
+            dark: 'designs/brand-identity/badge_dark.png',
+            light: 'designs/brand-identity/badge_light.png',
+            caption: 'Emblem badge lockup with circular contrast border and winking developer mascot.'
+        },
+        horizontal: {
+            dark: 'designs/brand-identity/horizontal_dark.png',
+            light: 'designs/brand-identity/horizontal_light.png',
+            caption: 'Horizontal lockup designed for website headers, GitHub banners, and document headers.'
+        },
+        vertical: {
+            dark: 'designs/brand-identity/vertical_dark.png',
+            light: 'designs/brand-identity/vertical_light.png',
+            caption: 'Vertical stacked lockup for merchandise, poster graphics, and splash screens.'
+        },
+        icon: {
+            dark: 'designs/brand-identity/icon_dark.png',
+            light: 'designs/brand-identity/icon_light.png',
+            caption: 'Minimalist brand mark optimized for mobile app icons, favicons, and avatars.'
+        },
+        sketch: {
+            dark: 'designs/brand-identity/sketch.jpg',
+            light: 'designs/brand-identity/sketch.jpg',
+            caption: 'Original pencil concept sketches showing mascot ideation, expressions, and anatomy.'
+        }
+    };
+
+    let activeVariant = 'badge';
+    let activeSurface = 'dark';
+
+    function updateBrandViewer() {
+        if (!brandPreviewImg || !brandCanvas) return;
+        const asset = brandAssets[activeVariant];
+        if (!asset) return;
+
+        brandPreviewImg.classList.add('fade-out');
+        setTimeout(() => {
+            brandPreviewImg.src = activeSurface === 'dark' ? asset.dark : asset.light;
+            brandPreviewImg.alt = `BIGZ ${activeVariant} (${activeSurface} mode)`;
+            if (brandCaption) brandCaption.textContent = asset.caption;
+
+            brandCanvas.className = `design-preview-canvas ${activeSurface}-surface`;
+            brandPreviewImg.classList.remove('fade-out');
+        }, 150);
+    }
+
+    brandVariantBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            brandVariantBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            activeVariant = btn.getAttribute('data-variant') || 'badge';
+            updateBrandViewer();
+        });
+    });
+
+    surfaceBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            surfaceBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            activeSurface = btn.getAttribute('data-surface') || 'dark';
+            updateBrandViewer();
+        });
+    });
+
+    /* --- Marketing Collateral Gallery Controller --- */
+    const marketingTabs = document.querySelectorAll('.marketing-tab-btn');
+    const marketingImg = document.getElementById('marketing-preview-img');
+    const marketingTitle = document.getElementById('marketing-asset-title');
+    const marketingDim = document.getElementById('marketing-asset-dim');
+    const marketingDesc = document.getElementById('marketing-asset-desc');
+    const marketingPalette = document.getElementById('marketing-asset-palette');
+
+    const marketingData = {
+        landing: {
+            src: 'designs/marketing/landingbanner.png',
+            title: 'E-Commerce Hero Landing Banner',
+            dim: '1920 × 960 px · Web Hero',
+            desc: 'High-resolution wide banner for Urban Threads "Back to School" drop. Combines dark cyber grid textures, 240GSM cotton feature callouts, and fit guide CTA.',
+            palette: ['#FFDE00', '#0066FF', '#0D0F14', '#F8FAFC']
+        },
+        banner: {
+            src: 'designs/marketing/banner_ad.png',
+            title: 'Web Display Ad (Back to School)',
+            dim: '1373 × 1145 px · Display Advertising',
+            desc: 'Promotional display ad built for high conversion with contrasting yellow and electric blue brush art, model apparel isolation, and directional "Shop Now" action.',
+            palette: ['#FFDE00', '#0066FF', '#111111', '#FFFFFF']
+        },
+        social: {
+            src: 'designs/marketing/fbpost.png',
+            title: 'Social Media Feed Post (Urban Threads)',
+            dim: '1080 × 1080 px · Facebook & Instagram',
+            desc: 'Square feed creative featuring multiple lifestyle apparel models, product colorway preview thumbnails, and streetwear taglines.',
+            palette: ['#FFDE00', '#0066FF', '#FF6B00', '#1A1A1A']
+        },
+        newsletter: {
+            src: 'designs/marketing/newsletter_header.png',
+            title: 'Email Newsletter Header Graphic',
+            dim: '1200 × 600 px · Email Marketing',
+            desc: 'Split-tone dynamic header with apparel mockup and raw brush calligraphy announcing "Good Vibes Better Grades" seasonal launch.',
+            palette: ['#FFDE00', '#0070F3', '#000000', '#FFFFFF']
+        }
+    };
+
+    marketingTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const key = tab.getAttribute('data-asset');
+            const data = marketingData[key];
+            if (!data) return;
+
+            marketingTabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+
+            if (marketingImg) {
+                marketingImg.classList.add('fade-out');
+                setTimeout(() => {
+                    marketingImg.src = data.src;
+                    marketingImg.alt = data.title;
+                    if (marketingTitle) marketingTitle.textContent = data.title;
+                    if (marketingDim) marketingDim.textContent = data.dim;
+                    if (marketingDesc) marketingDesc.textContent = data.desc;
+                    if (marketingPalette) {
+                        marketingPalette.innerHTML = data.palette.map(c => 
+                            `<span class="color-dot" style="background-color: ${c};" title="${c}"></span>`
+                        ).join('');
+                    }
+                    marketingImg.classList.remove('fade-out');
+                }, 150);
+            }
+        });
+    });
+
     /* --- Scroll Reveal Animations --- */
     if (document.body) document.body.classList.add('js-enabled');
     const revealElements = document.querySelectorAll('.scroll-reveal');
