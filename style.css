@@ -1649,6 +1649,87 @@ h2 {
     transform: scale(1.04);
 }
 
+/* Video Hero Showcase Canvas */
+.bento-video-canvas {
+    width: 100%;
+    height: 100%;
+    min-height: 220px;
+    background: #000;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.35s ease;
+}
+
+.bento-card:hover .bento-video-canvas {
+    border-color: rgba(255, 59, 48, 0.45);
+}
+
+.bento-video-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.35s ease;
+    filter: brightness(0.85);
+}
+
+.bento-card:hover .bento-video-img {
+    transform: scale(1.05);
+    filter: brightness(0.95);
+}
+
+.bento-play-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.6) 100%);
+    pointer-events: none;
+    transition: background 0.3s ease;
+}
+
+.bento-card:hover .bento-play-overlay {
+    background: radial-gradient(circle, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.45) 100%);
+}
+
+.bento-play-circle {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: rgba(255, 59, 48, 0.9);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 3px;
+    box-shadow: 0 8px 24px rgba(255, 59, 48, 0.5);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s ease;
+}
+
+.bento-card:hover .bento-play-circle {
+    transform: scale(1.12);
+    background: #ff3b30;
+    box-shadow: 0 12px 28px rgba(255, 59, 48, 0.7);
+}
+
+.bento-video-canvas .bento-badge-chip {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    margin-top: 0;
+    background: rgba(0, 0, 0, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
 /* Standard Bento Cards (Urban Threads & Coffee) */
 .bento-standard {
     grid-column: span 1;
@@ -1774,6 +1855,18 @@ h2 {
     border-color: rgba(232, 137, 57, 0.55);
 }
 
+#ai-ads-card::before {
+    background: linear-gradient(90deg, #ff3b30, #ff9500);
+}
+
+#ai-ads-card:hover {
+    border-color: rgba(255, 59, 48, 0.35);
+}
+
+[data-theme='dark'] #ai-ads-card:hover {
+    border-color: rgba(255, 59, 48, 0.55);
+}
+
 /* Modal Headers & Themes */
 #bigz-brand-modal .modal-section h3 {
     border-left-color: #0957EF;
@@ -1789,6 +1882,10 @@ h2 {
 
 #coffee-typography-modal .modal-section h3 {
     border-left-color: #e88939;
+}
+
+#ai-ads-modal .modal-section h3 {
+    border-left-color: #ff3b30;
 }
 
 /* Interactive Design Viewer Styles */
