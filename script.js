@@ -307,6 +307,69 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    /* --- BiteFlow Mid-Fidelity Screen Viewer Controller --- */
+    const biteflowTabs = document.querySelectorAll('.biteflow-tab-btn');
+    const biteflowImg = document.getElementById('biteflow-preview-img');
+    const biteflowTitle = document.getElementById('biteflow-asset-title');
+    const biteflowDim = document.getElementById('biteflow-asset-dim');
+    const biteflowDesc = document.getElementById('biteflow-asset-desc');
+
+    const biteflowData = {
+        overview: {
+            src: 'designs/uiux/biteflow_overview.png',
+            title: '4-Screen Mid-Fidelity Flow Architecture',
+            dim: '1730 × 930 px · Figma Canvas',
+            desc: 'Complete end-to-end user journey across 4 essential mobile views: Discovery, Food Customization, Cart & Review, and Live Order Tracking.'
+        },
+        home: {
+            src: 'designs/uiux/biteflow_home.png',
+            title: 'Screen 1: Home & Discovery',
+            dim: '390 × 844 px · iOS Viewport',
+            desc: 'Intuitive restaurant discovery with verified delivery address, search bar, horizontal cuisine chips ([All], [Burgers], [Pizza]), and transparent rating/fee cards.'
+        },
+        customization: {
+            src: 'designs/uiux/biteflow_customization.png',
+            title: 'Screen 2: Food Customization',
+            dim: '390 × 844 px · iOS Viewport',
+            desc: 'Structured meal configuration separating mandatory single-choice radio buttons (Brioche Bun) from optional add-ons (Extra Cheddar, Bacon) with dynamic real-time pricing sticky CTA.'
+        },
+        cart: {
+            src: 'designs/uiux/biteflow_cart.png',
+            title: 'Screen 3: Cart & Order Review',
+            dim: '390 × 844 px · iOS Viewport',
+            desc: 'Clean checkout verification with itemized quantity steppers, delivery address confirmation, payment method selector (GCash / COD), and transparent bill breakdown.'
+        },
+        tracking: {
+            src: 'designs/uiux/biteflow_tracking.png',
+            title: 'Screen 4: Order Status & Live Tracking',
+            dim: '390 × 844 px · iOS Viewport',
+            desc: 'Real-time order lifecycle feedback with 4-stage stepper (Confirmed → Preparing → On the Way → Delivered), rider contact actions (Call/Message), and itemized order receipt.'
+        }
+    };
+
+    biteflowTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const key = tab.getAttribute('data-screen');
+            const data = biteflowData[key];
+            if (!data) return;
+
+            biteflowTabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+
+            if (biteflowImg) {
+                biteflowImg.classList.add('fade-out');
+                setTimeout(() => {
+                    biteflowImg.src = data.src;
+                    biteflowImg.alt = data.title;
+                    if (biteflowTitle) biteflowTitle.textContent = data.title;
+                    if (biteflowDim) biteflowDim.textContent = data.dim;
+                    if (biteflowDesc) biteflowDesc.textContent = data.desc;
+                    biteflowImg.classList.remove('fade-out');
+                }, 150);
+            }
+        });
+    });
+
     /* --- Scroll Reveal Animations --- */
     if (document.body) document.body.classList.add('js-enabled');
     const revealElements = document.querySelectorAll('.scroll-reveal');
