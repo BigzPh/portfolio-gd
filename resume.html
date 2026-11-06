@@ -166,9 +166,9 @@
 
     /* Awards List */
     .award-grid {
-        display: flex;
-        justify-content: space-between;
-        gap: 8pt;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2.5pt 12pt;
     }
     .award-item {
         font-size: 8.2pt;
@@ -284,10 +284,10 @@
                 </div>
                 <span class="item-date">Google Play &middot; App Store</span>
             </div>
-            <div class="item-tech">Flutter, Android Home Screen & iOS 18 Lock Screen Widgets, Dart, Local Storage</div>
+            <div class="item-tech">Kotlin Multiplatform (KMP), Compose Multiplatform, SwiftUI &amp; WidgetKit, Android AppWidget</div>
             <ul class="bullets">
-                <li>Published production mobile utility providing persistent, interactive desktop and lock-screen sticky note widgets with custom styling.</li>
-                <li>Engineered native widget communication channels for instant two-way note state updates and offline-first local persistence.</li>
+                <li>Published production cross-platform utility with persistent desktop and lock-screen sticky note widgets, sharing UI and business logic across Android and iOS via Compose Multiplatform.</li>
+                <li>Engineered native iOS WidgetKit extensions (Swift, App Intents) and Android AppWidgets for instant bidirectional note state updates and offline-first local persistence.</li>
             </ul>
         </div>
 
@@ -299,10 +299,10 @@
                 </div>
                 <span class="item-date">Google Play &middot; App Store</span>
             </div>
-            <div class="item-tech">Flutter, Elixir, Phoenix Framework, PostgreSQL, MVVM Architecture</div>
+            <div class="item-tech">Kotlin, Jetpack Compose, Local LLM (llama.cpp), Room DB, Coroutines &amp; Flow</div>
             <ul class="bullets">
-                <li>Designed and deployed cross-platform productivity application with interactive calendar integrations and state-driven task tracking.</li>
-                <li>Integrated high-throughput Elixir/Phoenix backend APIs and PostgreSQL persistence for synchronized user workflows.</li>
+                <li>Architected an offline-first task manager and habit tracker on Google Play and App Store with reactive state management using Room SQLite, Coroutines, and Flow.</li>
+                <li>Integrated on-device local LLM (llama.cpp) via native C++ JNI with ARM NEON acceleration for zero-latency, private schedule generation and natural language task parsing.</li>
             </ul>
         </div>
     </div>
@@ -330,8 +330,9 @@
     <div class="section">
         <div class="section-title">Honors & Awards</div>
         <div class="award-grid">
-            <div class="award-item"><strong>Champion</strong> &mdash; CCC DCI Hackathon 2025</div>
-            <div class="award-item"><strong>Finalist</strong> &mdash; CCC DCI Hackathon 2026</div>
+            <div class="award-item"><strong>Champion</strong> &mdash; DCI Hackathon 2026 (Tidal Forge)</div>
+            <div class="award-item"><strong>Finalist</strong> &mdash; DCI Hackathon 2026 (Digital Wizards)</div>
+            <div class="award-item"><strong>Champion</strong> &mdash; DCI Hackathon 2025 (The Howl and the Brave)</div>
             <div class="award-item"><strong>Finalist</strong> &mdash; CICS Hackathon 2026</div>
         </div>
     </div>

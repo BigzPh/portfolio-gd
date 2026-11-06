@@ -57,7 +57,7 @@ body {
 }
 
 .container {
-    max-width: 700px;
+    max-width: 750px;
     margin: 0 auto;
 }
 
@@ -66,6 +66,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+    gap: 16px;
     margin-bottom: 40px;
 }
 
@@ -73,6 +74,8 @@ header {
     display: flex;
     gap: 24px;
     align-items: flex-start;
+    flex: 1;
+    min-width: 0;
 }
 
 .profile-img {
@@ -94,9 +97,9 @@ header {
 .intro {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    height: 250px;
+    gap: 14px;
     flex: 1;
+    min-width: 0;
 }
 
 .intro-text {
@@ -283,6 +286,10 @@ header {
 
 .badges .badge:nth-child(3) {
     animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.28s both;
+}
+
+.badges .badge:nth-child(4) {
+    animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.34s both;
 }
 
 .badge {
